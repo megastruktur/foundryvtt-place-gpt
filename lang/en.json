@@ -1,0 +1,9 @@
+{
+  "place-gpt.prompt": "Generate the text description of the map and its every room for Tabletop RPG by The Description below. Format your answer in a valid JSON array of objects, where every object is a room. E.g.: [{ \"name\": \"Bridge\", \"description\": \"This is the command center of the spaceship. The walls are lined with screens displaying various readings and data. The captain's chair sits at the center of the room, facing the main viewscreen. There are doors leading to the rest of the ship.\", \"exits\": { \"north\": \"Captain's Quarters\", \"east\": \"Navigation Room\", \"south\": \"Main Corridor\" }] Keep response under 1000 tokens.",
+  "place-gpt.Generate": "Generate",
+  "place-gpt.Generating": "Generating...",
+  "place-gpt.generating_the_place": "Generating the place",
+  "place-gpt.generate_a_place": "Generate a place",
+  "place-gpt.waiting_for_generate": "Waiting for the AI to generate the place...",
+  "place-gpt.Exits": "Exits"
+}
