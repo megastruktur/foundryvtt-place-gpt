@@ -20,8 +20,12 @@ async function waitingForGpt(place) {
         (data) => {
             dialog.close();
             if (data !== null) {
-                journalEntryPlaceDescription(place, data);
-                chatPlaceDescription(place, data);
+                if (game.settings.get("place-gpt", "outputTo") === 0 || game.settings.get("place-gpt", "outputTo") === 2) {
+                    journalEntryPlaceDescription(place, data);
+                }
+                if (game.settings.get("place-gpt", "outputTo") === 1 || game.settings.get("place-gpt", "outputTo") === 2) {
+                    chatPlaceDescription(place, data);
+                }
             }
             else {
                 ui.notifications.error("Error generating place");
@@ -150,14 +154,18 @@ function generatePopup() {
 }
 
 
-// Make a request to ChatGPT to get response
+/**
+ * Make a request to ChatGPT to get response
+ * @param message
+ * @returns {Promise<any|null>}
+ */
 async function getChatGPTResponse(message) {
 
     // Test data
     if (game.settings.get("place-gpt", "dummyMode") === true) {
         let dummyJson = '[ { "name": "Living Room", "description": "The living room is cozy and inviting, with a plush sofa and armchair arranged around a coffee table. A TV sits on a stand against one wall, and a bookshelf lines another. A large window lets in plenty of natural light, and there is a door leading to the front porch.", "exits": { "east": "Kitchen", "south": "Main Hallway" } }, { "name": "Kitchen", "description": "The kitchen is small but functional, with a stove, refrigerator, and sink. There is a small table with two chairs for dining. A window above the sink looks out onto the backyard, and there is a door leading to the back porch.", "exits": { "west": "Living Room" } }, { "name": "Main Hallway", "description": "The main hallway runs the length of the house, with doors leading to the various rooms. There is a coat closet by the front door, and a staircase leading to the second floor.", "exits": { "north": "Living Room", "east": "Bathroom", "south": "Bedroom 1", "west": "Bedroom 2" } }, { "name": "Bathroom", "description": "The bathroom is small but functional, with a sink, toilet, and shower/tub combo. There is a small window for ventilation.", "exits": { "west": "Main Hallway" } }, { "name": "Bedroom 1", "description": "This bedroom is cozy and comfortable, with a double bed, dresser, and closet. A window looks out onto the front yard.", "exits": { "north": "Main Hallway" } }, { "name": "Bedroom 2", "description": "This bedroom is slightly larger than the other, with a queen bed, dresser, and closet. A window looks out onto the backyard.", "exits": { "east": "Main Hallway" } } ]';
 
-        // wait 10 secs
+        // wait 2 secs to emulate the call to the API
         await new Promise(r => setTimeout(r, 2000));
         return JSON.parse(dummyJson);
     }
@@ -166,7 +174,7 @@ async function getChatGPTResponse(message) {
 
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + game.settings.get('place-gpt', 'openaiAPIToken') // Replace with your actual API key
+        'Authorization': 'Bearer ' + game.settings.get('place-gpt', 'openaiAPIToken')
     };
 
     const body = {

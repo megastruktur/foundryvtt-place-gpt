@@ -5,5 +5,10 @@
   "place-gpt.generating_the_place": "Generating the place",
   "place-gpt.generate_a_place": "Generate a place",
   "place-gpt.waiting_for_generate": "Waiting for the AI to generate the place...",
-  "place-gpt.Exits": "Exits"
+  "place-gpt.Exits": "Exits",
+  "place-gpt.settings.outputTo.name": "Output to",
+  "place-gpt.settings.outputTo.hint": "Output generated entry to the selected place.",
+  "place-gpt.settings.outputTo.journal": "Journal",
+  "place-gpt.settings.outputTo.chat": "Chat",
+  "place-gpt.settings.outputTo.both": "Journal and Chat"
 }
