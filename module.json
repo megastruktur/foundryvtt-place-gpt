@@ -3,10 +3,12 @@
   "description": "Generate a description for your locations using GPT-3",
   "version": "0.0.1",
   "scripts": [
-    "place-gpt.js"
   ],
   "esmodules": [
-    "scripts/config.js"
+    "place-gpt.js",
+    "scripts/config.js",
+    "ai-classes/chatgpt.js",
+    "ai-classes/ai-manager.js"
   ],
   "id": "place-gpt",
   "compatibility": {

@@ -1,3 +1,5 @@
+import {AiManager} from "./ai-classes/ai-manager.js";
+
 Hooks.on("renderSceneControls", async (app, html) => {
     let place_gpt = $('<li class="scene-control" title="Create Place"><i class="fas fa-globe"></i></li>');
     place_gpt.click( async function() {
@@ -6,15 +8,23 @@ Hooks.on("renderSceneControls", async (app, html) => {
     html.children().first().append( place_gpt );
 });
 
+Hooks.on("ready", () => {
+    if (game.settings.get("place-gpt", "dummyMode")) {
+        console.log("place-gpt | Dummy mode enabled");
+    }
+    console.log("place-gpt | Initializing AI");
+    game.placeGPT = new AiManager().load_ai();
+    console.log("place-gpt | Ready");
+});
+
 
 async function waitingForGpt(place) {
     const dialog = waitingPopup();
     dialog.render(true);
 
-    // Make the call to chatGPT with getChatGPTResponse function.
     // While the call is being made, show the waiting popup.
     // When the call is done, close the waiting popup and show the response in chat.
-    const promise = getChatGPTResponse(place);
+    const promise = game.placeGPT.getCompletion(place);
 
     promise.then(
         (data) => {
@@ -31,7 +41,12 @@ async function waitingForGpt(place) {
                 ui.notifications.error("Error generating place");
             }
         }
-    );
+    )
+        .catch(function(error) {
+            dialog.close();
+            console.log(error);
+            ui.notifications.error("Error generating place");
+        });
 }
 
 
@@ -113,7 +128,7 @@ function waitingPopup() {
                 label: game.i18n.localize('Cancel'),
             },
         },
-        default: "cancel",
+        default: "close",
     });
 }
 
@@ -137,11 +152,14 @@ function generatePopup() {
             generate: {
                 icon: "<i class='fas fa-check'></i>",
                 label: game.i18n.localize("place-gpt.Generate"),
-                callback: async (html) => {
+                callback: (html) => {
                     // Get the text prompt from the form
                     let place = html.find('[name="place-gpt"]')[0].value;
-                    await waitingForGpt(place);
-                    // console.log(placeGenerated);
+
+                    if (place === "") {
+                        throw new Error(game.i18n.localize('place-gpt.error.prompt_required'));
+                    }
+                    waitingForGpt(place);
                 },
             },
             cancel: {
@@ -151,63 +169,4 @@ function generatePopup() {
         },
         default: "generate",
     });
-}
-
-
-/**
- * Make a request to ChatGPT to get response
- * @param message
- * @returns {Promise<any|null>}
- */
-async function getChatGPTResponse(message) {
-
-    // Test data
-    if (game.settings.get("place-gpt", "dummyMode") === true) {
-        let dummyJson = '[ { "name": "Living Room", "description": "The living room is cozy and inviting, with a plush sofa and armchair arranged around a coffee table. A TV sits on a stand against one wall, and a bookshelf lines another. A large window lets in plenty of natural light, and there is a door leading to the front porch.", "exits": { "east": "Kitchen", "south": "Main Hallway" } }, { "name": "Kitchen", "description": "The kitchen is small but functional, with a stove, refrigerator, and sink. There is a small table with two chairs for dining. A window above the sink looks out onto the backyard, and there is a door leading to the back porch.", "exits": { "west": "Living Room" } }, { "name": "Main Hallway", "description": "The main hallway runs the length of the house, with doors leading to the various rooms. There is a coat closet by the front door, and a staircase leading to the second floor.", "exits": { "north": "Living Room", "east": "Bathroom", "south": "Bedroom 1", "west": "Bedroom 2" } }, { "name": "Bathroom", "description": "The bathroom is small but functional, with a sink, toilet, and shower/tub combo. There is a small window for ventilation.", "exits": { "west": "Main Hallway" } }, { "name": "Bedroom 1", "description": "This bedroom is cozy and comfortable, with a double bed, dresser, and closet. A window looks out onto the front yard.", "exits": { "north": "Main Hallway" } }, { "name": "Bedroom 2", "description": "This bedroom is slightly larger than the other, with a queen bed, dresser, and closet. A window looks out onto the backyard.", "exits": { "east": "Main Hallway" } } ]';
-
-        // wait 2 secs to emulate the call to the API
-        await new Promise(r => setTimeout(r, 2000));
-        return JSON.parse(dummyJson);
-    }
-
-    const apiUrl = 'https://api.openai.com/v1/chat/completions';
-
-    const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + game.settings.get('place-gpt', 'openaiAPIToken')
-    };
-
-    const body = {
-        'model': 'gpt-3.5-turbo-0301',
-        'temperature': 0.2,
-        'messages': [
-            {'role': 'system', 'content': game.i18n.localize("place-gpt.prompt")},
-            {'role': 'user', 'content': message}
-        ]
-    };
-
-    const requestOptions = {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify(body)
-    };
-
-    try {
-        const response = await fetch(apiUrl, requestOptions);
-        const data = await response.json();
-
-        // Retrieve the assistant's reply from the API response
-        // Try to decode JSON (if the response is JSON)
-        try {
-            return JSON.parse(data.choices[0].message.content);
-        }
-        catch {
-            // If the response is not JSON, return the raw string
-            return null;
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        // Handle error
-        return null;
-    }
 }
