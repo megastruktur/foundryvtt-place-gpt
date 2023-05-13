@@ -1,4 +1,10 @@
 # PlaceGPT module for FoundryVTT
+<p align="center">
+<img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/megastruktur/foundryvtt-place-gpt"> <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/megastruktur/foundryvtt-place-gpt"> <img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/megastruktur/foundryvtt-place-gpt/total" /> <img alt="GitHub Release Date" src="https://img.shields.io/github/release-date/megastruktur/foundryvtt-place-gpt?label=latest%20release" /> 
+</p>
+<p align="center">
+<img alt="GitHub" src="https://img.shields.io/github/license/megastruktur/foundryvtt-place-gpt"> <a href="https://github.com/megastruktur/foundryvtt-place-gpt/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/megastruktur/foundryvtt-place-gpt"></a> <a href="https://github.com/megastruktur/foundryvtt-place-gpt/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/megastruktur/foundryvtt-place-gpt"></a> <a href="https://github.com/megastruktur/foundryvtt-place-gpt/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/megastruktur/foundryvtt-place-gpt"></a> 
+</p>
 
 # WARNING
 **The module works only with ChatGPT for now so if you don't have openai account you won't be able to use it for now.**
