@@ -11,6 +11,7 @@
     "place-gpt.js",
     "scripts/config.js",
     "ai-classes/chatgpt.js",
+    "ai-classes/dummy.js",
     "ai-classes/ai-manager.js"
   ],
   "id": "place-gpt",

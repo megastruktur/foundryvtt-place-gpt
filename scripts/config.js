@@ -1,14 +1,6 @@
 import {ai_providers} from '../ai-classes/ai-manager.js';
 
 Hooks.on('init', () => {
-    game.settings.register('place-gpt', 'dummyMode', {
-        name: 'Dummy Mode',
-        scope: 'world',
-        config: true,
-        type: Boolean,
-        default: false
-    });
-
     game.settings.register('place-gpt', 'outputTo', {
         name: game.i18n.localize('place-gpt.settings.outputTo.name'),
         hint: game.i18n.localize('place-gpt.settings.outputTo.hint'),

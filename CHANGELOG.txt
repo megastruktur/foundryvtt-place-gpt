@@ -1,2 +1,5 @@
+1.2
+- Adds a new "Dummy" GPT provider with test data instead of a checkbox.
+
 1.0
 - The module is born.

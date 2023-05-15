@@ -1,10 +1,15 @@
 import { ChatGPT } from "./chatgpt.js";
+import {Dummy} from "./dummy.js";
 
 export const ai_providers = {
     0: {
         "name": "chatgpt",
         "class": ChatGPT,
-    }
+    },
+    1: {
+        "name": "dummy",
+        "class": Dummy,
+    },
 }
 
 export class AiManager {

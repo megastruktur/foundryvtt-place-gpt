@@ -11,6 +11,10 @@ Hooks.on('init', () => {
 
 export class ChatGPT {
 
+    get name() {
+        return 'ChatGPT';
+    }
+
     /**
      * Get a response from ChatGPT
      * @param prompt
@@ -21,15 +25,6 @@ export class ChatGPT {
         if (!game.settings.get('place-gpt', 'openaiAPIToken')) {
             ui.notifications.error(game.i18n.localize('place-gpt.error.no_api_token'));
             return null;
-        }
-
-        // Test data
-        if (game.settings.get("place-gpt", "dummyMode") === true) {
-            let dummyJson = game.i18n.localize('place-gpt.dummy_completion');
-
-            // wait 2 secs to emulate the call to the API
-            await new Promise(r => setTimeout(r, 2000));
-            return JSON.parse(dummyJson);
         }
 
         const apiUrl = 'https://api.openai.com/v1/chat/completions';

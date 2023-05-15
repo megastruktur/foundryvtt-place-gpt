@@ -9,12 +9,9 @@ Hooks.on("renderSceneControls", async (app, html) => {
 });
 
 Hooks.on("ready", () => {
-    if (game.settings.get("place-gpt", "dummyMode")) {
-        console.log("place-gpt | Dummy mode enabled");
-    }
     console.log("place-gpt | Initializing AI");
     game.placeGPT = new AiManager().load_ai();
-    console.log("place-gpt | Ready");
+    console.log("place-gpt | Ready with AI provider: " + game.placeGPT.name);
 });
 
 
@@ -36,16 +33,17 @@ async function waitingForGpt(place) {
                 if (game.settings.get("place-gpt", "outputTo") === 1 || game.settings.get("place-gpt", "outputTo") === 2) {
                     chatPlaceDescription(place, data);
                 }
+                ui.notifications.info(game.i18n.localize('place-gpt.success.success_generating_place'));
             }
             else {
-                ui.notifications.error("Error generating place");
+                ui.notifications.error(game.i18n.localize('place-gpt.error.error_generating_place'));
             }
         }
     )
         .catch(function(error) {
             dialog.close();
             console.log(error);
-            ui.notifications.error("Error generating place");
+            ui.notifications.error(game.i18n.localize('place-gpt.error.error_generating_place'));
         });
 }
 
@@ -90,6 +88,7 @@ function journalEntryPlaceDescription(placeDescription, placeJSON) {
 function parsePlaceJSONToHTML(placeDescription, placeJSON) {
     let placeGenerated = "";
     placeJSON.forEach(room => {
+        placeGenerated += `<div class="room">`;
         placeGenerated += `<h2>${room.name}</h2>`;
         placeGenerated += `<p>${room.description}</p>`;
 
@@ -102,6 +101,7 @@ function parsePlaceJSONToHTML(placeDescription, placeJSON) {
             }
             placeGenerated += exits;
         }
+        placeGenerated += `</div>`;
     });
     return placeGenerated;
 }
