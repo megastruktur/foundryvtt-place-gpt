@@ -45,6 +45,7 @@ export class ChatGPT {
             'temperature': 0.2,
             'messages': [
                 {'role': 'system', 'content': full_or_sections_prompt},
+                {'role': 'system', 'content': "Answer in the language of user request but keep the JSON valid."},
                 {'role': 'user', 'content': prompt}
             ]
         };
