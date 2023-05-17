@@ -18,9 +18,10 @@ export class ChatGPT {
     /**
      * Get a response from ChatGPT
      * @param prompt
+     * @param full_or_sections
      * @returns {Promise<any|null>}
      */
-    async getCompletion(prompt) {
+    async getCompletion(prompt, full_or_sections = "section") {
 
         if (!game.settings.get('place-gpt', 'openaiAPIToken')) {
             ui.notifications.error(game.i18n.localize('place-gpt.error.no_api_token'));
@@ -28,6 +29,11 @@ export class ChatGPT {
         }
 
         const apiUrl = 'https://api.openai.com/v1/chat/completions';
+
+        let full_or_sections_prompt = game.i18n.localize("place-gpt.prompt_section");
+        if (full_or_sections === "full") {
+            full_or_sections_prompt = game.i18n.localize("place-gpt.prompt_full")
+        }
 
         const headers = {
             'Content-Type': 'application/json',
@@ -38,7 +44,7 @@ export class ChatGPT {
             'model': 'gpt-3.5-turbo-0301',
             'temperature': 0.2,
             'messages': [
-                {'role': 'system', 'content': game.i18n.localize("place-gpt.prompt")},
+                {'role': 'system', 'content': full_or_sections_prompt},
                 {'role': 'user', 'content': prompt}
             ]
         };
@@ -50,6 +56,7 @@ export class ChatGPT {
         };
 
         try {
+            // @todo add different http error handling e.g. 429 is out of credits.
             const response = await fetch(apiUrl, requestOptions);
             const data = await response.json();
 

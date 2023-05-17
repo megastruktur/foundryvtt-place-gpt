@@ -1,0 +1,42 @@
+[
+{
+  "name": "Living Room",
+  "exits": {
+    "east": "Kitchen",
+    "south": "Main Hallway"
+  }
+},
+{
+  "name": "Kitchen",
+  "exits": {
+    "west": "Living Room"
+  }
+},
+{
+  "name": "Main Hallway",
+  "exits": {
+    "north": "Living Room",
+    "east": "Bathroom",
+    "south": "Bedroom 1",
+    "west": "Bedroom 2"
+  }
+},
+{
+  "name": "Bathroom",
+  "exits": {
+    "west": "Main Hallway"
+  }
+},
+{
+  "name": "Bedroom 1",
+  "exits": {
+    "north": "Main Hallway"
+  }
+},
+{
+  "name": "Bedroom 2",
+  "exits": {
+    "east": "Main Hallway"
+  }
+}
+]

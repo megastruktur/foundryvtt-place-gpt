@@ -1,4 +1,5 @@
-1.2
+2.0
+- Global refactoring
 - Adds a new "Dummy" GPT provider with test data instead of a checkbox.
 
 1.0

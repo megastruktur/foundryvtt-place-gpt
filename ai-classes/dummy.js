@@ -7,11 +7,16 @@ export class Dummy {
     /**
      * Get a response from ChatGPT
      * @param prompt
+     * @param full_or_sections
      * @returns {Promise<any|null>}
      */
-    async getCompletion(prompt) {
+    async getCompletion(prompt, full_or_sections= "section") {
 
-        const apiUrl = '/modules/place-gpt/assets/dummy.json';
+        console.log(full_or_sections);
+        let apiUrl = '/modules/place-gpt/assets/dummy_section.json';
+        if (full_or_sections === "full") {
+            apiUrl = '/modules/place-gpt/assets/dummy_full.json';
+        }
 
         const headers = {
             'Content-Type': 'application/json',
