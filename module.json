@@ -1,10 +1,10 @@
 {
   "title": "Place GPT",
   "description": "Generate a description for your locations using GPT-3",
-  "version": "1.1",
+  "version": "2.0",
   "url": "https://github.com/megastruktur/foundryvtt-place-gpt/",
   "manifest": "https://raw.githubusercontent.com/megastruktur/foundryvtt-place-gpt/master/module.json",
-  "download": "https://github.com/megastruktur/foundryvtt-place-gpt/releases/download/1.1/place-gpt-1.1.zip",
+  "download": "https://github.com/megastruktur/foundryvtt-place-gpt/releases/download/2.0/place-gpt-2.0.zip",
   "scripts": [
   ],
   "esmodules": [
