@@ -1,0 +1,35 @@
+[{
+  "name": "Entrance",
+  "exits": {
+    "north": "Storage Room",
+    "east": "Weapons Section",
+    "south": "Food Section"
+  }
+}, {
+  "name": "Storage Room",
+  "exits": {
+    "south": "Entrance"
+  }
+}, {
+  "name": "Weapons Section",
+  "exits": {
+    "west": "Entrance",
+    "north": "Armor Section"
+  }
+}, {
+  "name": "Armor Section",
+  "exits": {
+    "south": "Weapons Section"
+  }
+}, {
+  "name": "Food Section",
+  "exits": {
+    "north": "Entrance",
+    "east": "Drink Section"
+  }
+}, {
+  "name": "Drink Section",
+  "exits": {
+    "west": "Food Section"
+  }
+}]

@@ -1,18 +1,7 @@
-Hooks.on('init', () => {
-    game.settings.register('place-gpt', 'openaiAPIToken', {
-        name: 'OpenAI API Token',
-        hint: 'Get the token at the OpenAPI developers console',
-        scope: 'world',
-        config: true,
-        type: String,
-        default: ''
-    });
-});
-
-export class ChatGPT {
+export class ChatGPTTD {
 
     get name() {
-        return 'ChatGPT';
+        return 'ChatGPT Temporary Demo';
     }
 
     /**
@@ -37,7 +26,7 @@ export class ChatGPT {
 
         const headers = {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + game.settings.get('place-gpt', 'openaiAPIToken')
+            'Authorization': 'Bearer OPENAITEMPDEMO'
         };
 
         const body = {
