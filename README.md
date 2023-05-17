@@ -20,6 +20,7 @@ The Place is created as Journal entry by default but additionally can be added a
 ## Installation
 
 ### ChatGPT
+0. Make sure to get familiar with their pricing first at https://openai.com/api/pricing/
 1. Install and enable the module
 2. Create account at openai.com (or use an existing one)
 3. Go to https://platform.openai.com/account/api-keys and create a new API key
